@@ -20,15 +20,19 @@ notice.dispatch("common/footer",{msg:"after-data-one"});
 notice.dispatch("common/footer",{msg:"after-data-two"});
 
 //remove one handler
+
 notice.remove("common/footer",funcOne);
 
 //remove one message all handler
+
 notice.remove("common/footer");
 
 //remove all message all handler
+
 notice.removeAll();
 
 //async run one functione
+
 notice.setImmediate(function(){
   console.log("Async func");
 });
