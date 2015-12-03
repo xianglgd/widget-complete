@@ -126,15 +126,16 @@ fn1 果然有bug. fn2 就不会继续运行了。
 并且这样做也是为了防止,外面 调用setImmediate方法时,把内部的给调用了。
 囧: 本来打算重写 dispatch , 让里面响应的函数全为异步执行.
 现在觉得貌似也没必要, 使用者完全可以在外面 setImmediate(dispatch);
-虽然这样 是在一次事件循环中 处理所有 listener. 
-但是如果在 dispatch 中再去分别调用 setImmediate 为了能把数据带上,必然又产生一次闭包.
+虽然这样是在一次事件循环中 处理所有 listener. 
+但是如果在 dispatch 中再去分别调用 setImmediate, 为了能把数据带上,必然又产生一次闭包.
 这样的花费是否值得？？？？？
 ******************************************/
 var setImmediate = null;
 if(window.postMessage){ 
 	window.addEventListener("message", function(e) {
 	    if (e.data.indexOf &&  e.data.indexOf(funcIdKey) === 0) {
-	        setImmediateQueue[e.data]();
+	        setImmediateQueue[e.data] && setImmediateQueue[e.data]();
+	        delete setImmediateQueue[e.data];
 	    }
 	    /*   or   
 	    if (e.data === funcIdKey) {
