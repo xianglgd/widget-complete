@@ -135,8 +135,8 @@ fn1 果然有bug. fn2 就不会继续运行了。
 var setImmediate = null;
 if(window.postMessage){ 
 	window.addEventListener("message", function(e) {
-	    if (e.data.indexOf &&  e.data.indexOf(funcIdKey) === 0) {
-	        setImmediateQueue[e.data] && setImmediateQueue[e.data]();
+	    if (e.data.indexOf &&  setImmediateQueue[e.data] ) {
+	        setImmediateQueue[e.data]();
 	        delete setImmediateQueue[e.data];
 	    }
 	    /*   or   
