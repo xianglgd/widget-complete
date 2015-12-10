@@ -10,7 +10,7 @@ widget 不能修改数据。并且除了第一次 init 时的数据用来渲染�
 
 ### 例子
 ```js
-var pageData = require("pageData");
+var pageData = require("static/pageData");
 var data = {
 	"people":{
 		"name":"lgd",

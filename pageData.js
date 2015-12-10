@@ -21,37 +21,39 @@ widget 绝对不能调用 store 。只能调用 get 。
 page 做为所有widget的调度中心。数据的相关操作,只能在page中进行。
 */
 
-;(function(window, undefined){
+;
+(function(window, undefined) {
 
-var baseUtil = require('static/baseUtil');
+	var baseUtil = require('static/baseUtil');
 
 
-var data = {};
-var widget = {};
+	var data = {};
+	var widget = {};
 
-function store (_data,_widget) { //多次store 进行覆盖
-	if(!_data){
-		return;
+	function store(_data, _widget) { //多次store 进行覆盖
+		if (!_data) {
+			return;
+		}
+		data = baseUtil.cloneData(_data);
+		if (!_widget) {
+			return;
+		}
+		widget = baseUtil.cloneData(_widget);
 	}
-	data = $.extend(true,{},_data);
-	if(!_widget){
-		return;
-	}
-	widget = $.extend(true,{},_widget);
-}
 
-function get (widgetName) {
-	if(!widgetName){
-		return $.extend(true,{},data);
+	function get(widgetName) {
+		if (!widgetName) {
+			return $.extend(true, {}, data);
+		}
+		var str = widget[widgetName];
+		var widgetData = baseUtil.getObjData(data, str);
+		return baseUtil.cloneData(widgetData);
 	}
-	var str = widget[widgetName];
-	return $.extend(true,{},baseUtil.getObjData(data,str));
-}
 
-var exports = {
-	'store': store,
-	'get': get
-}
-module.exports = exports;
+	var exports = {
+		'store': store,
+		'get': get
+	}
+	module.exports = exports;
 
 })(window);
