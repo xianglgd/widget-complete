@@ -57,7 +57,9 @@ function add (msgName,callBack,data) {
 	if(typeof(data)==="object"){
 		addData = $.extend(true,{},data);//防止外部修改,损失了data的原貌。所以深拷贝一下
 	}
-	funcId = callBack[funcIdKey] = getOnlyId(); //为这个 func 取一个唯一id。
+	if(!funcId){//如果之前,该函数没注册过。
+		funcId = callBack[funcIdKey] = getOnlyId(); //为这个 func 取一个唯一id。
+	}
 	msgObj[funcId] = {
 		func: callBack,
 		data: addData
