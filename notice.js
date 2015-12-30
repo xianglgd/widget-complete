@@ -144,7 +144,7 @@ create by liuguodong 15/10/14
 	var setImmediate = null;
 	if (window.postMessage) {
 		window.addEventListener("message", function(e) {
-			if (e.data.indexOf && setImmediateQueue[e.data]) {
+			if (setImmediateQueue[e.data]) {
 				setImmediateQueue[e.data]();
 				delete setImmediateQueue[e.data];
 			}
